@@ -5,27 +5,33 @@ var questionText = document.querySelector("#question");
 var guessOptions = document.querySelector("#guess");
 var startButton = document.querySelector("#start-button");
 
-var answerList = document.createElement("ul");
-var li1 = document.createElement("li");
-var li2 = document.createElement("li");
-var li3 = document.createElement("li");
-var li4 = document.createElement("li");
-
-document.querySelector("#guess").appendChild(answerList);
-answerList.appendChild(li1);
-answerList.appendChild(li2);
-answerList.appendChild(li3);
-answerList.appendChild(li4);
-
-
 var questions = ["question 1?", "question 2?", "question 3?", "question 4?"];
 var answers = ["1 correct", "2 correct", "3 correct", "4 correct"];
 var nonAnswers = ["fake answer 1", "fake answer 2", "fake answer 3", "fake answer 4", "fake answer 5", "fake answer 6"];
 
 /* This function loads questions from the questions and answers array */
 function loadQuestions() {
+    var answerList = document.createElement("ul");
+    var li1 = document.createElement("li");
+    var li2 = document.createElement("li");
+    var li3 = document.createElement("li");
+    var li4 = document.createElement("li");
+
+    document.querySelector("#guess").appendChild(answerList);
+    answerList.appendChild(li1);
+    answerList.appendChild(li2);
+    answerList.appendChild(li3);
+    answerList.appendChild(li4);
+
+    for (var i = 0; i <= questions.length; i++) {
+        selectQuestion = questions[Math.floor(Math.random() * questions.length)];
+        selectAnswers = answers[questions.indexOf(selectQuestion)];
+    }
+
+    /*
     selectQuestion = questions[Math.floor(Math.random() * questions.length)];
     selectAnswers = answers[Math.floor(Math.random() * answers.length)];
+    */
 
     questionText.textContent = selectQuestion;
     li1.textContent = selectAnswers;
