@@ -1,10 +1,8 @@
-/* WHEN the page loads, there is an introductory paragraph to the code quiz and a START button */
-
 var questionText = document.querySelector("#question");
 var guessOptions = document.querySelector("#guesses");
 var startButton = document.querySelector("#start-button");
-var timerText = document.querySelector("#timer")
-var checkAnswer = document.querySelector("#checker")
+var timerText = document.querySelector("#timer");
+var checkAnswer = document.querySelector("#checker");
 
 var questions = [
     {
@@ -35,17 +33,39 @@ var questions = [
 ];
 
 var questionNumber = -1;
-var answer;
+var correctAnswer;
 var timeLeft = 60;
 var score = 0;
 
-/* Then a timer begins giving the user a certain amount of time to answer the question*/
 
+function startGame() {
+    startButton.style.display = "none";
+    guessOptions.style.display = "block";
+    
+    setTimer();
+    
+    loadQuestions();
+    
+}
+
+/* Then a timer begins giving the user a certain amount of time to answer the question*/
+function setTimer() {
+    var countdown = setInterval(function() {
+        timeLeft--;
+        timerText.textContent = `Only ${timeLeft} seconds remain`;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            console.log("THE END");
+        }
+
+    }, 1000);
+}
 
 /* This function loads questions from the questions and answers array */
 function loadQuestions() {
     questionNumber++;
-    answer = questions[questionNumber].answer
+    correctAnswer = questions[questionNumber].answer
 
     questionText.textContent = questions[questionNumber].question;
     guessOptions.innerHTML = "";
@@ -53,7 +73,7 @@ function loadQuestions() {
     var guesses = questions[questionNumber].guesses;
 
     for (var i = 0; i < guesses.length; i++) {
-        var nextGuess = document.createElement("button");
+        var nextGuess = document.createElement("li");
 
         nextGuess.textContent = guesses[i]
         answerBtn = guessOptions.appendChild(nextGuess);
@@ -62,13 +82,13 @@ function loadQuestions() {
 
 
 /* When a user clicks the START button than a question with four possible answers loads onto the screen */
-startButton.addEventListener("click", loadQuestions);
+startButton.addEventListener("click", startGame);
 
 guessOptions.addEventListener("click", function(event) {
-    if (answer === event.target.textContent) {
-        checkAnswer.innerHTML = "CORRECT!";
+    if (correctAnswer === event.target.textContent) {
+        checkAnswer.textContent = "CORRECT!";
     } else {
-        checkAnswer.innerHTML = "INCORRECT."
+        checkAnswer.textContent = "INCORRECT."
     }
     loadQuestions();
 })
