@@ -54,7 +54,7 @@ function setTimer() {
         timeLeft--;
         timerText.textContent = `Only ${timeLeft} seconds remain`;
 
-        if (timeLeft <= 0) {
+        if (timeLeft == 0 || questionNumber == questions.length) {
             clearInterval(countdown);
             console.log("THE END");
         }
@@ -89,6 +89,7 @@ guessOptions.addEventListener("click", function(event) {
         checkAnswer.textContent = "CORRECT!";
     } else {
         checkAnswer.textContent = "INCORRECT."
+        timeLeft = timeLeft - 10;
     }
     loadQuestions();
 })
