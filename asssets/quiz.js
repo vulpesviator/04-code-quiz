@@ -3,6 +3,8 @@ var guessOptions = document.querySelector("#guesses");
 var startButton = document.querySelector("#start-button");
 var timerText = document.querySelector("#timer");
 var checkAnswer = document.querySelector("#checker");
+var userScore = document.querySelector("#user-score");
+var userInitials = document.querySelector("#user-initials");
 
 var questions = [
     {
@@ -41,7 +43,7 @@ var score = 0;
 function startGame() {
     startButton.style.display = "none";
     guessOptions.style.display = "block";
-    
+        
     setTimer();
     
     loadQuestions();
@@ -56,7 +58,7 @@ function setTimer() {
 
         if (timeLeft == 0 || questionNumber == questions.length) {
             clearInterval(countdown);
-            console.log("THE END");
+            endGame();
         }
 
     }, 1000);
@@ -86,8 +88,10 @@ startButton.addEventListener("click", startGame);
 
 guessOptions.addEventListener("click", function(event) {
     if (correctAnswer === event.target.textContent) {
+        score++;
         checkAnswer.textContent = "CORRECT!";
     } else {
+        score--;
         checkAnswer.textContent = "INCORRECT."
         timeLeft = timeLeft - 10;
     }
@@ -98,70 +102,10 @@ guessOptions.addEventListener("click", function(event) {
 /* If the user clicks the correct answer a new question appears on the screen, else the answer is incorrect and time is subtracted from the quiz timer */
 
 /* When all questions are answered OR the timer reaches 0, the game ends. */
+function endGame() {
+    userInitials.style.display = "block";
+    userScore.textContent = `Final score: ${score}/5`;
+}
 
 /* When the game ends, the user can save their intitials and view their score. */
-function endGame() {
 
-}
-
-
-
-
-
-
-/*
-
-function startGame() {
-    startButton.style.display = "none";
-
-    loadQuestions();
-
-    guessOptions.addEventListener("click", function(event) {
-        var element = event.target;
-
-        if (element.matches("li")) {
-            score++;
-            loadQuestions();
-        } else {
-            score--;
-            loadQuestions();
-        }
-    });
-
-    setInterval(function() {
-        timeLeft--;
-        timerText.textContent = `Time life: ${timeLeft}`;
-        if (timeLeft <= 0) {
-            endGame();
-        }
-    }, 1000);
-}
-
-function loadQuestions() {
-    
-
-    var answerList = document.createElement("ul");
-    var li1 = document.createElement("li");
-    var li2 = document.createElement("li");
-    var li3 = document.createElement("li");
-    var li4 = document.createElement("li");
-
-    document.querySelector("#guess").appendChild(answerList);
-    answerList.appendChild(li1);
-    answerList.appendChild(li2);
-    answerList.appendChild(li3);
-    answerList.appendChild(li4);
-
-    for (var i = 0; i <= questions.length; i++) {
-        selectQuestion = questions[Math.floor(Math.random() * questions.length)];
-        selectAnswers = correctAnswers[questions.indexOf(selectQuestion)];
-    }
-
-    questionText.textContent = selectQuestion;
-    li1.textContent = selectAnswers;
-    li2.textContent = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)];
-    li3.textContent = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)];
-    li4.textContent = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)]
-
-}
-*/
