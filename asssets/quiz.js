@@ -1,19 +1,95 @@
 /* WHEN the page loads, there is an introductory paragraph to the code quiz and a START button */
 
-
 var questionText = document.querySelector("#question");
-var guessOptions = document.querySelector("#guess");
+var guessOptions = document.querySelector("#guesses");
 var startButton = document.querySelector("#start-button");
 var timerText = document.querySelector("#timer")
+var checkAnswer = document.querySelector("#checker")
 
-var questions = ["question 1?", "question 2?", "question 3?", "question 4?"];
-var correctAnswers = ["1 correct", "2 correct", "3 correct", "4 correct"];
-var wrongAnswers = ["fake answer 1", "fake answer 2", "fake answer 3", "fake answer 4", "fake answer 5", "fake answer 6"];
+var questions = [
+    {
+        question: "Question 1?",
+        guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
+        answer: "Right Answer"
+    }, 
+    {
+        question: "Question 2?",
+        guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
+        answer: "Right Answer"
+    }, 
+    {
+        question: "Question 3?",
+        guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
+        answer: "Right Answer"
+    }, 
+    {
+        question: "Question 4?",
+        guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
+        answer: "Right Answer"
+    }, 
+    {
+        question: "Question 5?",
+        guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
+        answer: "Right Answer"
+    }, 
+];
 
+var questionNumber = -1;
+var answer;
 var timeLeft = 60;
 var score = 0;
 
 /* Then a timer begins giving the user a certain amount of time to answer the question*/
+
+
+/* This function loads questions from the questions and answers array */
+function loadQuestions() {
+    questionNumber++;
+    answer = questions[questionNumber].answer
+
+    questionText.textContent = questions[questionNumber].question;
+    guessOptions.innerHTML = "";
+
+    var guesses = questions[questionNumber].guesses;
+
+    for (var i = 0; i < guesses.length; i++) {
+        var nextGuess = document.createElement("button");
+
+        nextGuess.textContent = guesses[i]
+        answerBtn = guessOptions.appendChild(nextGuess);
+    }
+}
+
+
+/* When a user clicks the START button than a question with four possible answers loads onto the screen */
+startButton.addEventListener("click", loadQuestions);
+
+guessOptions.addEventListener("click", function(event) {
+    if (answer === event.target.textContent) {
+        checkAnswer.innerHTML = "CORRECT!";
+    } else {
+        checkAnswer.innerHTML = "INCORRECT."
+    }
+    loadQuestions();
+})
+
+
+/* If the user clicks the correct answer a new question appears on the screen, else the answer is incorrect and time is subtracted from the quiz timer */
+
+/* When all questions are answered OR the timer reaches 0, the game ends. */
+
+/* When the game ends, the user can save their intitials and view their score. */
+function endGame() {
+
+}
+
+
+
+
+
+
+/*
+
 function startGame() {
     startButton.style.display = "none";
 
@@ -40,7 +116,6 @@ function startGame() {
     }, 1000);
 }
 
-/* This function loads questions from the questions and answers array */
 function loadQuestions() {
     
 
@@ -68,17 +143,4 @@ function loadQuestions() {
     li4.textContent = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)]
 
 }
-
-/* When a user clicks the START button than a question with four possible answers loads onto the screen */
-startButton.addEventListener("click", startGame);
-
-
-
-/* If the user clicks the correct answer a new question appears on the screen, else the answer is incorrect and time is subtracted from the quiz timer */
-
-/* When all questions are answered OR the timer reaches 0, the game ends. */
-
-/* When the game ends, the user can save their intitials and view their score. */
-function endGame() {
-
-}
+*/
