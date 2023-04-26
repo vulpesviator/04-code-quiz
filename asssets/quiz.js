@@ -34,10 +34,7 @@ var quizQuestions = [
         question: "Question 5?",
         guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
         answer: "Right Answer"
-    }, 
-    {
-        answer: "Game Over"
-    } 
+    }
 ];
 
 var questionNumber = -1;
@@ -149,13 +146,21 @@ submitButton.addEventListener("click", function(event) {
 
 /* When all questions are answered OR the timer reaches 0, the game ends. */
 function endGame() {
+    quizBlock.style.display = "none";
+    timerText.textContent = "";
+    checkAnswer.textContent = "";
+    
+    /*
+    var playAgain = document.createElement("button")
+    document.querySelector(".info").appendChild(playAgain);
+    playAgain.innerHTML = "Play again?"
+    */
+
     userInitials.style.display = "block";
     userScore.textContent = `Final score: ${score}/5`;
 }
 
-/*
-function init() {
-    showScores();
-}
-init();
-*/
+// playAgain.addEventListener("click", startGame);
+
+
+
