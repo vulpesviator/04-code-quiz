@@ -1,3 +1,4 @@
+var quizBlock = document.querySelector("#quiz-block");
 var questionText = document.querySelector("#question");
 var guessOptions = document.querySelector("#guesses");
 var startButton = document.querySelector("#start-button");
@@ -8,7 +9,7 @@ var userInitials = document.querySelector("#user-initials");
 var userName = document.querySelector("#user-name");
 var submitButton = document.querySelector("#submit-button");
 
-var questions = [
+var quizQuestions = [
     {
         question: "Question 1?",
         guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
@@ -33,6 +34,9 @@ var questions = [
         question: "Question 5?",
         guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
         answer: "Right Answer"
+    }, 
+    {
+        answer: "Game Over"
     } 
 ];
 
@@ -58,7 +62,7 @@ function setTimer() {
         timeLeft--;
         timerText.textContent = `Only ${timeLeft} seconds remain`;
 
-        if (timeLeft == 0 || questionNumber == questions.length) {
+        if (timeLeft == 0 || questionNumber == quizQuestions.length) {
             clearInterval(countdown);
             endGame();
         }
@@ -69,12 +73,14 @@ function setTimer() {
 /* This function loads questions from the questions and answers array */
 function loadQuestions() {
     questionNumber++;
-    correctAnswer = questions[questionNumber].answer
+    correctAnswer = quizQuestions[questionNumber].answer;
 
-    questionText.textContent = questions[questionNumber].question;
+
+    questionText.textContent = quizQuestions[questionNumber].question;
     guessOptions.innerHTML = "";
 
-    var guesses = questions[questionNumber].guesses;
+    var guesses = quizQuestions[questionNumber].guesses;
+
 
     for (var i = 0; i < guesses.length; i++) {
         var nextGuess = document.createElement("li");
@@ -124,13 +130,15 @@ guessOptions.addEventListener("click", function(event) {
         checkAnswer.textContent = String.fromCodePoint(0x1f44e);
         timeLeft = timeLeft - 10;
     }
+    
     loadQuestions();
+    
 });
 
 submitButton.addEventListener("click", function(event) {
     event.preventDefault();
     saveScore();
-    // showScores();
+    showScores();
 });
 
 /* When all questions are answered OR the timer reaches 0, the game ends. */
