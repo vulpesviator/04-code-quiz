@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./asssets/style.css">
-    <title>Code Quiz</title>
+    <title>The Elements of JavaScript</title>
 
 </head>
+
 <body>
     <header>
-        <h1>Code Quiz</h1>
+        <h1>The Elements of JavaScript</h1>
     </header>
     <main>
         <!-- Quiz Start -->
         <!-- WHEN the page loads, there is an introductory paragraph to the code quiz and a START button -->
 
         <div id="container">
-            <h2>Questions and Answers</h2>
-            
+            <h2>Click the START button to begin!</h2>
+            <p>You will have 60 seconds to answer 10 questions on the fundamentals of JavaScript. Each incorrect answer will take 10 seconds off your timer.</p>
             <button id="start-button">START</button>
-        </div>
+            
+            <!-- Questions & Answers -->
+            <div id="quiz">
+                <div id="quiz-block">
+                    <div id="question"></div>
+                    <div id="guesses">
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
 
-        <!-- Questions & Answers -->
-        <div id="quiz">
-            <div id="quiz-block">
-                <div id="question"></div>
-                <div id="guesses">
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                   
+                    </div>
+                </div>
+                <div class="info">
+                <p id="checker"></p>
+                <p id="timer"></p>
                 </div>
             </div>
-            <p id="checker"></p>    
-            <p id="timer"></p>
-        </div>
 
-        <!-- User Score and Initials -->
-        <div>
-            <form action="input" id="user-initials">
-                <label for="initials">Enter your initials: </label>
-                <input type="text" id="user-name">
-                <button type="button" id="submit-button">Submit</button>
-            </form>
-            <p id="user-score"></p>
+            <!-- User Score and Initials -->
+            <div>
+                <form action="input" id="user-initials">
+                    <label for="initials">Enter your initials: </label>
+                    <input type="text" id="user-name">
+                    <button type="button" id="submit-button">Submit</button>
+                </form>
+                <p id="user-score"></p>
+            </div>
+
         </div>
     </main>
 
     <script src="./asssets/quiz.js"></script>
 </body>
+
 </html>
