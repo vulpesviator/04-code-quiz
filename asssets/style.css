@@ -1,7 +1,44 @@
+body {
+    position: absolute;
+    width: 70%;
+    border: #000 2px solid;
+    top: 10%;
+    left: calc(50vw - 35%);
+    text-align: center;
+}
+
 #guesses {
     display: none;
+    width: 50%;
+    margin: 0;
+}
+
+#guesses li {
+    list-style-type: none;
+    text-align: center;
+    padding: .75em;
+    box-sizing: border-box;
+    background: #ccc;
+    margin: 2em;
+}
+
+#guesses li:hover {
+    background: green;
+    color: white;
+    transform: scale(102%);
+    box-shadow: #000 2px 2px;
 }
 
 #user-initials {
     display: none;
+}
+
+.info {
+    display: inline-flex;
+    flex-direction: row;
+    
+}
+
+.info p {
+    margin: 1em;
 }

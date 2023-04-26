@@ -44,7 +44,7 @@ var score = 0;
 
 function startGame() {
     startButton.style.display = "none";
-    guessOptions.style.display = "block";
+    guessOptions.style.display = "inline-block";
         
     setTimer();
     
