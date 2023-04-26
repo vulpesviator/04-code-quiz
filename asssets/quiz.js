@@ -5,6 +5,8 @@ var timerText = document.querySelector("#timer");
 var checkAnswer = document.querySelector("#checker");
 var userScore = document.querySelector("#user-score");
 var userInitials = document.querySelector("#user-initials");
+var userName = document.querySelector("#user-name");
+var submitButton = document.querySelector("#submit-button");
 
 var questions = [
     {
@@ -31,7 +33,7 @@ var questions = [
         question: "Question 5?",
         guesses: ["Wrong Answer 1", "Wrong Answer 2", "Right Answer", "Wrong Answer 3"],
         answer: "Right Answer"
-    }, 
+    } 
 ];
 
 var questionNumber = -1;
@@ -82,24 +84,54 @@ function loadQuestions() {
     }
 }
 
+/* When the game ends, the user can save their intitials and view their score. */
+function saveScore() {
+
+    var newScore = {
+        name: userName.value,
+        score: score
+    };
+
+    localStorage.setItem("newScore", JSON.stringify(newScore));
+    console.log(newScore);
+}
+
+function showScores() {
+    var highScores = JSON.parse(localStorage.getItem("newScore"));
+
+    if (highScores !== null) {
+        var scoreList = document.createElement("ul")
+        var score1 = document.createElement("li")
+
+        document.querySelector("#user-score").appendChild(scoreList);
+        scoreList.appendChild(score1);
+
+        score1.innerHTML = newScore.name;
+    } else {
+        return;
+    }
+}
 
 /* When a user clicks the START button than a question with four possible answers loads onto the screen */
 startButton.addEventListener("click", startGame);
 
+/* If the user clicks the correct answer a new question appears on the screen, else the answer is incorrect and time is subtracted from the quiz timer */
 guessOptions.addEventListener("click", function(event) {
     if (correctAnswer === event.target.textContent) {
         score++;
-        checkAnswer.textContent = "CORRECT!";
+        checkAnswer.textContent = String.fromCodePoint(0x1f44d);
     } else {
-        score--;
-        checkAnswer.textContent = "INCORRECT."
+        checkAnswer.textContent = String.fromCodePoint(0x1f44e);
         timeLeft = timeLeft - 10;
     }
     loadQuestions();
-})
+});
 
-
-/* If the user clicks the correct answer a new question appears on the screen, else the answer is incorrect and time is subtracted from the quiz timer */
+submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    saveScore();
+    // showScores();
+});
 
 /* When all questions are answered OR the timer reaches 0, the game ends. */
 function endGame() {
@@ -107,5 +139,9 @@ function endGame() {
     userScore.textContent = `Final score: ${score}/5`;
 }
 
-/* When the game ends, the user can save their intitials and view their score. */
-
+/*
+function init() {
+    showScores();
+}
+init();
+*/
