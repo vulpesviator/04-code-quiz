@@ -62,17 +62,22 @@ function setTimer() {
         timeLeft--;
         timerText.textContent = `Only ${timeLeft} seconds remain`;
 
-        if (timeLeft == 0 || questionNumber == quizQuestions.length) {
+        if (questionNumber >= quizQuestions.length || timeLeft == 0) {
             clearInterval(countdown);
             endGame();
         }
 
     }, 1000);
+
+    
 }
 
 /* This function loads questions from the questions and answers array */
 function loadQuestions() {
     questionNumber++;
+    if (questionNumber >= quizQuestions.length) {
+        return;
+    }
     correctAnswer = quizQuestions[questionNumber].answer;
 
 
@@ -81,13 +86,14 @@ function loadQuestions() {
 
     var guesses = quizQuestions[questionNumber].guesses;
 
+    if (guesses) {
+       for (var i = 0; i < guesses.length; i++) {
+            var nextGuess = document.createElement("li");
 
-    for (var i = 0; i < guesses.length; i++) {
-        var nextGuess = document.createElement("li");
-
-        nextGuess.textContent = guesses[i]
-        answerBtn = guessOptions.appendChild(nextGuess);
-    }
+            nextGuess.textContent = guesses[i]
+            answerBtn = guessOptions.appendChild(nextGuess);
+        }
+    } 
 }
 
 /* When the game ends, the user can save their intitials and view their score. */
@@ -131,8 +137,8 @@ guessOptions.addEventListener("click", function(event) {
         timeLeft = timeLeft - 10;
     }
     
-    loadQuestions();
-    
+        loadQuestions();
+
 });
 
 submitButton.addEventListener("click", function(event) {
