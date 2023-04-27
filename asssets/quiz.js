@@ -124,12 +124,11 @@ function saveScore() {
 
   localStorage.setItem("newScore", JSON.stringify(newScore));
   console.log(newScore);
-  userName.innerHTML = "";
-
 }
 
 /* Pulls scores from local storage and adds them to a list */
 function showScores() {
+
     var highScores = JSON.parse(localStorage.getItem("newScore"));
 
   if (highScores !== null) {
@@ -138,36 +137,14 @@ function showScores() {
 
     document.querySelector("#user-score").appendChild(scoreList);
     scoreList.appendChild(score1);
+   
 
     score1.innerHTML = highScores.name + highScores.score;
+    userName.value = "";
   } else {
     return;
   }
 }
-
-/*
-function submitHighScore() {
-    var newScore = {
-        name: userName.value,
-        score: score,
-      };
-    scores.push(newScore);
-    scores.sort((score1, score2) => {
-      return score1.score < score2.score ? 1 : -1;
-    });
-    let topTenScores = scores.slice(0, 10);
-    console.log(topTenScores);
-    localStorage.setItem("scores", JSON.stringify(topTenScores));
-    // Reset to Start again
-    submitInitialsBtn.innerHTML = "";
-    userName.innerHTML = "";
-    // let again = document.createElement("button");
-    // again.textContent = "PLAY AGAIN?";
-    // again.setAttribute("class", "button");
-    // playAgainBtn.appendChild(again);
-  }
-*/
-
 
 /* When a user clicks the START button than a question with four possible answers loads onto the screen */
 startButton.addEventListener("click", startGame);
@@ -188,8 +165,7 @@ guessOptions.addEventListener("click", function (event) {
 /* Submits newScore and calls scores from local storage */
 submitButton.addEventListener("click", function (event) {
   event.preventDefault();
-  submitHighScore();
-//   saveScore();
+  saveScore();
   showScores();
 });
 
