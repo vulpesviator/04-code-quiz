@@ -130,10 +130,11 @@ function saveScore() {
 /* Pulls scores from local storage and adds them to a list */
 function showScores() {
 
-    var highScores = JSON.parse(localStorage.getItem("newScore"));
-
+  var highScores = JSON.parse(localStorage.getItem("newScore")) || [];
+  var scoreList = document.createElement("ul");
+  
   if (highScores !== null) {
-    var scoreList = document.createElement("ul");
+    
     var score1 = document.createElement("li");
 
     document.querySelector("#user-score").appendChild(scoreList);
@@ -145,6 +146,7 @@ function showScores() {
   } else {
     return;
   }
+  
 }
 
 /* When a user clicks the START button than a question with four possible answers loads onto the screen */
