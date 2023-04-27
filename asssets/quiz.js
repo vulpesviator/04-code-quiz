@@ -1,4 +1,5 @@
 var quizBlock = document.querySelector("#quiz-block");
+var descriptParagraph = document.querySelector("#description")
 var questionText = document.querySelector("#question");
 var guessOptions = document.querySelector("#guesses");
 var startButton = document.querySelector("#start-button");
@@ -12,66 +13,118 @@ var playAgain = document.querySelector("#play-again");
 
 var quizQuestions = [
   {
-    question: "Question 1?",
+    question: "Javascript is an _______ language?",
     guesses: [
-      "Wrong Answer 1",
-      "Wrong Answer 2",
-      "Right Answer",
-      "Wrong Answer 3",
+      "Object-Oriented",
+      "Object-Based",
+      "Procedural",
+      "Object-Agnostic",
     ],
-    answer: "Right Answer",
+    answer: "Object-Oriented",
   },
   {
-    question: "Question 2?",
+    question: "Which of the following is not a primitive data type in JavaScript?",
     guesses: [
-      "Wrong Answer 1",
-      "Wrong Answer 2",
-      "Right Answer",
-      "Wrong Answer 3",
+      "Number",
+      "String",
+      "Boolean",
+      "Object",
     ],
-    answer: "Right Answer",
+    answer: "Object",
   },
   {
-    question: "Question 3?",
+    question: "What does the “typeof” operator do in JavaScript?",
     guesses: [
-      "Wrong Answer 1",
-      "Wrong Answer 2",
-      "Right Answer",
-      "Wrong Answer 3",
+      "Returns the data type of a variable",
+      "Checks if a variable is defined",
+      "Assigns a value to a variable",
+      "Concatenates two strings",
     ],
-    answer: "Right Answer",
+    answer: "Returns the data type of a variable",
   },
   {
-    question: "Question 4?",
+    question: "What is the output of the following code: console.log(2 + \“2\”);",
     guesses: [
-      "Wrong Answer 1",
-      "Wrong Answer 2",
-      "Right Answer",
-      "Wrong Answer 3",
+      "\“4\”",
+      "\“22\”",
+      "4",
+      "22",
     ],
-    answer: "Right Answer",
+    answer: "\“22\”",
   },
   {
-    question: "Question 5?",
+    question: "Which of the following is not a comparison operator in JavaScript?",
     guesses: [
-      "Wrong Answer 1",
-      "Wrong Answer 2",
-      "Right Answer",
-      "Wrong Answer 3",
+      "==",
+      "===",
+      "!=",
+      "=<",
     ],
-    answer: "Right Answer",
+    answer: "=<",
   },
+  {
+    question: "What does the “NaN” value represent in JavaScript?",
+    guesses: [
+      "Not a number",
+      "Null value",
+      "Undefined value",
+      "Boolean value",
+    ],
+    answer: "Not a number",
+  },
+  {
+    question: "What does the “this” keyword refer to in JavaScript?",
+    guesses: [
+      "The current function",
+      "The global object",
+      "The object that the function belongs to",
+      "The parent object of the current object",
+    ],
+    answer: "The object that the function belongs to",
+  },
+  {
+    question: "What is the correct syntax for a “for” loop in JavaScript?",
+    guesses: [
+      "for (i = 0; i < 5; i++)",
+      "for (var i = 0; i < 5; i++)",
+      "for (var i = 5; i > 0; i--)",
+      "for (i = 5; i > 0; i--)",
+    ],
+    answer: "for (var i = 0; i < 5; i++)",
+  },
+  {
+    question: "Which of the following is not a valid way to declare a function in JavaScript?",
+    guesses: [
+      "function myFunction() {}",
+      "var myFunction = function() {}",
+      "() => {}",
+      "function = {}",
+    ],
+    answer: "function = {}",
+  },
+  {
+    question: "Which of the following is not a loop in JavaScript?",
+    guesses: [
+      "for",
+      "while",
+      "next",
+      "do…while",
+    ],
+    answer: "next",
+  }
 ];
 
 var questionNumber = -1;
 var correctAnswer;
-var timeLeft = 60;
+var timeLeft = 120;
 var score = 0;
 var highScores = JSON.parse(localStorage.getItem("newScore")) || [];
 
 /* Clears page, starts timer, and loads questions */
 function startGame() {
   startButton.style.display = "none";
+  descriptParagraph.style.display = "none";
+  quizBlock.style.display = "block"
   guessOptions.style.display = "inline-block";
 
   setTimer();
@@ -83,6 +136,7 @@ function startGame() {
 function setTimer() {
   var countdown = setInterval(function () {
     timeLeft--;
+    timerText.style.display = "flex";
     timerText.textContent = `Only ${timeLeft} seconds remain`;
 
     if (questionNumber >= quizQuestions.length || timeLeft == 0) {
@@ -141,7 +195,7 @@ function showScores() {
     scoreList.appendChild(score1);
    
 
-    score1.innerHTML = highScores.name + highScores.score;
+    score1.innerHTML = highScores.name + " | " + highScores.score;
     userName.value = "";
   } else {
     return;
@@ -154,6 +208,8 @@ startButton.addEventListener("click", startGame);
 
 /* If the user clicks the correct answer a new question appears on the screen, else the answer is incorrect and time is subtracted from the quiz timer */
 guessOptions.addEventListener("click", function (event) {
+  checkAnswer.style.display = "flex";
+  
   if (correctAnswer === event.target.textContent) {
     score++;
     checkAnswer.textContent = String.fromCodePoint(0x1f44d);
@@ -175,16 +231,18 @@ submitButton.addEventListener("click", function (event) {
 /* When all questions are answered OR the timer reaches 0, the game ends. */
 function endGame() {
   quizBlock.style.display = "none";
+  descriptParagraph.style.display = "block";
   timerText.textContent = "";
+  timerText.style.display = "none";
   checkAnswer.textContent = "";
-
+  checkAnswer.style.display = "none";
   playAgain.style.display = "inline-block";
   document.querySelector(".info").appendChild(playAgain);
   playAgain.innerHTML = "Play again?";
 
   userInitials.style.display = "block";
-  
-  userScore.textContent = `Final score: ${score}/5`;
+  userScore.style.display = "inline-block";  
+  userScore.textContent = `Final score: ${score}/10`;
 
   
 }
@@ -194,10 +252,12 @@ playAgain.addEventListener("click", function (event) {
     event.preventDefault();
     playAgain.style.display = "none";
     quizBlock.style.display = "block";
+    
     userInitials.style.display = "none";
     userScore.textContent = "";
+    userScore.style.display = "none";
     questionNumber = -1;
     score = 0;
-    timeLeft = 60;
+    timeLeft = 120;
     startGame();
   });
