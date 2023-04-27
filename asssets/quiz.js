@@ -126,6 +126,7 @@ function saveScore() {
   console.log(newScore);
 }
 
+
 /* Pulls scores from local storage and adds them to a list */
 function showScores() {
 
