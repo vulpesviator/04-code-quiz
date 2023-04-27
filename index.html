@@ -5,12 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./asssets/style.css">
     <title>The Elements of JavaScript</title>
 
 </head>
 
 <body>
+    <div id="container">
     <header>
         <h1>The Elements of JavaScript</h1>
     </header>
@@ -18,9 +22,9 @@
         <!-- Quiz Start -->
         <!-- WHEN the page loads, there is an introductory paragraph to the code quiz and a START button -->
 
-        <div id="container">
+        <div>
             <h2>Click the START button to begin!</h2>
-            <p>You will have 60 seconds to answer 10 questions on the fundamentals of JavaScript. Each incorrect answer will take 10 seconds off your timer.</p>
+            <p id="description">You will have 120 seconds to answer 10 questions on the fundamentals of JavaScript. Each incorrect answer will take 10 seconds off your timer.</p>
             <button id="start-button">START</button>
             
             <!-- Questions & Answers -->
@@ -56,7 +60,7 @@
 
         </div>
     </main>
-
+</div>
     <script src="./asssets/quiz.js"></script>
 </body>
 
