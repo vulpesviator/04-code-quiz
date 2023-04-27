@@ -1,4 +1,4 @@
-# Javascript Interactive Quiz 
+# The Elements of Javascript Interactive Quiz 
 
 ## Description
 
@@ -10,7 +10,7 @@ The site is currently deployed for review on [github pages](https://vulpesviator
 
 To run this application locally, clone or download the repo which contains the necssary html, css, and js files. 
 
-![Javascript Interactive Quiz Screenshot](https://user-images.githubusercontent.com/123843930/234964270-eba8ffe6-d341-4655-8d41-9b75a286e3d3.gif)
+![The Elements of Javascript Interactive Quiz Screenshot](https://user-images.githubusercontent.com/123843930/234964270-eba8ffe6-d341-4655-8d41-9b75a286e3d3.gif)
 
 1. After loading the page click the `START` button. 
 2. A question with four possible answers will appear. You can click on the answer you think is correct. The timer will begin with 120 seconds. 
