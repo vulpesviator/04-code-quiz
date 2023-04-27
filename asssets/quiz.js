@@ -1,5 +1,5 @@
 var quizBlock = document.querySelector("#quiz-block");
-var descriptParagraph = document.querySelector("#description")
+var descriptParagraph = document.querySelector("#description");
 var questionText = document.querySelector("#question");
 var guessOptions = document.querySelector("#guesses");
 var startButton = document.querySelector("#start-button");
@@ -11,6 +11,7 @@ var userName = document.querySelector("#user-name");
 var submitButton = document.querySelector("#submit-button");
 var playAgain = document.querySelector("#play-again");
 
+/* This object holds the quiz questions, guesses, and correct answer key */
 var quizQuestions = [
   {
     question: "Javascript is an _______ language?",
@@ -23,13 +24,9 @@ var quizQuestions = [
     answer: "Object-Oriented",
   },
   {
-    question: "Which of the following is not a primitive data type in JavaScript?",
-    guesses: [
-      "Number",
-      "String",
-      "Boolean",
-      "Object",
-    ],
+    question:
+      "Which of the following is not a primitive data type in JavaScript?",
+    guesses: ["Number", "String", "Boolean", "Object"],
     answer: "Object",
   },
   {
@@ -43,33 +40,19 @@ var quizQuestions = [
     answer: "Returns the data type of a variable",
   },
   {
-    question: "What is the output of the following code: console.log(2 + \“2\”);",
-    guesses: [
-      "\“4\”",
-      "\“22\”",
-      "4",
-      "22",
-    ],
-    answer: "\“22\”",
+    question: "What is the output of the following code: console.log(2 + “2”);",
+    guesses: ["“4”", "“22”", "4", "22"],
+    answer: "“22”",
   },
   {
-    question: "Which of the following is not a comparison operator in JavaScript?",
-    guesses: [
-      "==",
-      "===",
-      "!=",
-      "=<",
-    ],
+    question:
+      "Which of the following is not a comparison operator in JavaScript?",
+    guesses: ["==", "===", "!=", "=<"],
     answer: "=<",
   },
   {
     question: "What does the “NaN” value represent in JavaScript?",
-    guesses: [
-      "Not a number",
-      "Null value",
-      "Undefined value",
-      "Boolean value",
-    ],
+    guesses: ["Not a number", "Null value", "Undefined value", "Boolean value"],
     answer: "Not a number",
   },
   {
@@ -93,7 +76,8 @@ var quizQuestions = [
     answer: "for (var i = 0; i < 5; i++)",
   },
   {
-    question: "Which of the following is not a valid way to declare a function in JavaScript?",
+    question:
+      "Which of the following is not a valid way to declare a function in JavaScript?",
     guesses: [
       "function myFunction() {}",
       "var myFunction = function() {}",
@@ -104,16 +88,12 @@ var quizQuestions = [
   },
   {
     question: "Which of the following is not a loop in JavaScript?",
-    guesses: [
-      "for",
-      "while",
-      "next",
-      "do…while",
-    ],
+    guesses: ["for", "while", "next", "do…while"],
     answer: "next",
-  }
+  },
 ];
 
+/* Variables to set the game settings before starting */
 var questionNumber = -1;
 var correctAnswer;
 var timeLeft = 120;
@@ -124,7 +104,7 @@ var highScores = JSON.parse(localStorage.getItem("newScore")) || [];
 function startGame() {
   startButton.style.display = "none";
   descriptParagraph.style.display = "none";
-  quizBlock.style.display = "block"
+  quizBlock.style.display = "block";
   guessOptions.style.display = "inline-block";
 
   setTimer();
@@ -132,7 +112,7 @@ function startGame() {
   loadQuestions();
 }
 
-/* Then a timer begins giving the user a certain amount of time to answer the question*/
+/* Sets the timer and countsdown to either all questions being answered or the timer reaching 0 */
 function setTimer() {
   var countdown = setInterval(function () {
     timeLeft--;
@@ -146,7 +126,7 @@ function setTimer() {
   }, 1000);
 }
 
-/* This function loads questions from the questions and answers array */
+/* Loads questions from the questions object */
 function loadQuestions() {
   questionNumber++;
   if (questionNumber >= quizQuestions.length) {
@@ -180,36 +160,31 @@ function saveScore() {
   console.log(newScore);
 }
 
-
 /* Pulls scores from local storage and adds them to a list */
 function showScores() {
-
   var highScores = JSON.parse(localStorage.getItem("newScore")) || [];
   var scoreList = document.createElement("ul");
-  
+
   if (highScores !== null) {
-    
     var score1 = document.createElement("li");
 
     document.querySelector("#user-score").appendChild(scoreList);
     scoreList.appendChild(score1);
-   
 
     score1.innerHTML = highScores.name + " | " + highScores.score;
     userName.value = "";
   } else {
     return;
   }
-  
 }
 
-/* When a user clicks the START button than a question with four possible answers loads onto the screen */
+/* Listens for player to click the start-button */
 startButton.addEventListener("click", startGame);
 
-/* If the user clicks the correct answer a new question appears on the screen, else the answer is incorrect and time is subtracted from the quiz timer */
+/* If the player clicks the correct answer; a new question appears on the screen. Otherwise, the answer is incorrect and 10 seconds is subtracted from the quiz timer */
 guessOptions.addEventListener("click", function (event) {
   checkAnswer.style.display = "flex";
-  
+
   if (correctAnswer === event.target.textContent) {
     score++;
     checkAnswer.textContent = String.fromCodePoint(0x1f44d);
@@ -221,14 +196,14 @@ guessOptions.addEventListener("click", function (event) {
   loadQuestions();
 });
 
-/* Submits newScore and calls scores from local storage */
+/* Listens for player to hit submit after entering their intitials and saves the score to local storage while calling any that are already saved */
 submitButton.addEventListener("click", function (event) {
   event.preventDefault();
   saveScore();
   showScores();
 });
 
-/* When all questions are answered OR the timer reaches 0, the game ends. */
+/* Ends the game and clears the questions and guesses. Also adds a button to the player can play again */
 function endGame() {
   quizBlock.style.display = "none";
   descriptParagraph.style.display = "block";
@@ -241,23 +216,21 @@ function endGame() {
   playAgain.innerHTML = "Play again?";
 
   userInitials.style.display = "block";
-  userScore.style.display = "inline-block";  
+  userScore.style.display = "inline-block";
   userScore.textContent = `Final score: ${score}/10`;
-
-  
 }
 
 /* Clears previous game state and starts new game in default state */
 playAgain.addEventListener("click", function (event) {
-    event.preventDefault();
-    playAgain.style.display = "none";
-    quizBlock.style.display = "block";
-    
-    userInitials.style.display = "none";
-    userScore.textContent = "";
-    userScore.style.display = "none";
-    questionNumber = -1;
-    score = 0;
-    timeLeft = 120;
-    startGame();
-  });
+  event.preventDefault();
+  playAgain.style.display = "none";
+  quizBlock.style.display = "block";
+
+  userInitials.style.display = "none";
+  userScore.textContent = "";
+  userScore.style.display = "none";
+  questionNumber = -1;
+  score = 0;
+  timeLeft = 120;
+  startGame();
+});

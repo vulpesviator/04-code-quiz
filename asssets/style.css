@@ -23,9 +23,7 @@ body {
     background-color: var(--lightblue);
 }
 
-main {
-    
-}
+main {}
 
 h1 {
     font-family: 'Share Tech Mono', monospace;
@@ -72,7 +70,7 @@ h2 {
     padding: 10px;
     color: var(--yellow);
     border: var(--lightblue) 3px solid;
-    background: linear-gradient(180deg, rgba(16,22,47,1) 0%, rgba(48,63,122,1) 100%);
+    background: linear-gradient(180deg, rgba(16, 22, 47, 1) 0%, rgba(48, 63, 122, 1) 100%);
 }
 
 #checker {
@@ -82,7 +80,7 @@ h2 {
     padding: 10px;
     color: var(--yellow);
     border: var(--lightblue) 3px solid;
-    background: linear-gradient(180deg, rgba(16,22,47,1) 0%, rgba(48,63,122,1) 100%);
+    background: linear-gradient(180deg, rgba(16, 22, 47, 1) 0%, rgba(48, 63, 122, 1) 100%);
 }
 
 #quiz-block {
@@ -176,7 +174,7 @@ h2 {
     margin-bottom: 2em;
     color: var(--yellow);
     border: var(--lightblue) 3px solid;
-    background: linear-gradient(180deg, rgba(16,22,47,1) 0%, rgba(48,63,122,1) 100%);
+    background: linear-gradient(180deg, rgba(16, 22, 47, 1) 0%, rgba(48, 63, 122, 1) 100%);
 }
 
 #user-score li {
@@ -188,7 +186,7 @@ h2 {
 .info {
     display: inline-flex;
     flex-direction: row;
-    
+
 }
 
 .info p {
